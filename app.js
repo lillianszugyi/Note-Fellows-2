@@ -10,11 +10,14 @@ if (document.title === 'Welcome to Note Fellows!') {//index.html
 }
 else if (document.title === 'Note Fellows') {// notes.html
   if (localStorage.userIndex) {
-    var userIndex = JSON.parse(localStorage.getItem('userIndex'));
+    userIndex = JSON.parse(localStorage.getItem('userIndex'));
     userLibrary = JSON.parse(localStorage.getItem('userLibrary'));
   }
-  var el = document.getElementById('noteList');
-  el.addEventListener('click', function(e) {NoteTracker.getNote(e);},false);
+  var el = $('noteList').on('click', function(e) {
+    NoteTracker.getNote(e);
+  },false);
+  // document.getElementById('noteList');
+  // el.addEventListener('click', function(e) {NoteTracker.getNote(e);},false);
 }
 /***************OBJECT CONSTRUCTORS***************/
 function User (username, password, library, tagLibrary) {
@@ -50,7 +53,7 @@ function newUserForm (event) {
     returnUserForm(e);
   },false);
 }
-function returnUserForm (event) {
+function returnUserForm (event){
   $('#loginForm').append('');
   // document.getElementById('loginForm').innerHTML = '';
   $('#loginForm').append('<form name="loginform" class="whiteText" id="returnUser"><fieldset><legend>Returning User</legend><label>Username</label><input class="labelColor" type="text" name="usr" placeholder="username" required="required"><label>Password</label><input class="labelColor" type="password" name="pword" placeholder="password" required="required"><p id="msg"></p><input class="button-primary" type="submit" value="Login"></fieldset></form><input class="button-primary" type="submit" value="Create New User" id="newButton">');
@@ -64,7 +67,7 @@ function returnUserForm (event) {
   $('#newButton').on('click', function(e) {
     newUserForm(e);
   },false);
-};
+}
 //   var newButton = document.getElementById('newButton');
 //   newButton.addEventListener('click', function(e) {newUserForm(e);},false);
 // }
@@ -89,7 +92,7 @@ function newUser(event) {
     var x = userLibrary.length - 1;
     localStorage.setItem('userIndex', JSON.stringify(x));
     localStorage.setItem('userLibrary', JSON.stringify(userLibrary));
-    window.location = "notes.html";
+    window.location = 'notes.html';
   }
 }
 function returnUser(event) {
@@ -101,17 +104,17 @@ function returnUser(event) {
   var userExists = false;
   for (var i = 0; i < userLibrary.length; i++) {
     if (userLibrary[i].username === username && userLibrary[i].password === password) {
-        NoteTracker.currentUser = userLibrary[i];
-        localStorage.setItem('userIndex', JSON.stringify(i));
-        localStorage.setItem('userLibrary', JSON.stringify(userLibrary));
-        window.location = "notes.html";
-     }
+      NoteTracker.currentUser = userLibrary[i];
+      localStorage.setItem('userIndex', JSON.stringify(i));
+      localStorage.setItem('userLibrary', JSON.stringify(userLibrary));
+      window.location = 'notes.html';
+    }
     if (userLibrary[i].username === username && userLibrary[i].password !== password) {
-        msg.textContent = "Incorrect Password";
-        userExists = true;
-     }
-   }
-   if (!userExists) {msg.textContent = "User Does Not Exist";}
+      msg.textContent = 'Incorrect Password';
+      userExists = true;
+    }
+  }
+  if (!userExists) {msg.textContent = 'User Does Not Exist';}
 }
 /***************OBJECT LITERAL******************/
 var NoteTracker = {
@@ -164,7 +167,7 @@ var NoteTracker = {
     for (var i = 0; i < tempTags.length; i++) {
       // if no other instances exist, then delete the tag from the user's tag library
       if (!this.checkTagExists(tempTags[i])) {
-          this.deleteTag(tempTags[i]);
+        this.deleteTag(tempTags[i]);
       }
     }
     localStorage.setItem('userLibrary', JSON.stringify(userLibrary));
@@ -186,7 +189,7 @@ var NoteTracker = {
   },
   sendToBrowser: function (note) {
     var elList = document.createElement('li');    // new list element
-    elList.setAttribute('id',"counter" + note.noteIndex);
+    elList.setAttribute('id','counter' + note.noteIndex);
 
     var elTitle = document.createElement('p');    // note title
     elTitle.textContent = note.noteTitle;
@@ -216,12 +219,12 @@ var NoteTracker = {
     // document.getElementById('noteWrapper').innerHTML = '';
   },
   tagsDropDown: function() {
-      userLibrary = JSON.parse(localStorage.getItem('userLibrary'));
-      var menu = '<form id="tagForm">Search By Tags: <select id="noteTags" onchange="NoteTracker.searchForTag(this.value)"><option class="tagColor" value="none">None</option>';
-      for (var i = 0; i < userLibrary[userIndex].tagLibrary.length; i++) {
-        menu += '<option class="tagColor" value="' + userLibrary[userIndex].tagLibrary[i] + '">' + userLibrary[userIndex].tagLibrary[i] + '</option>';
-      }
-      menu += '</select></form>';
+    userLibrary = JSON.parse(localStorage.getItem('userLibrary'));
+    var menu = '<form id="tagForm">Search By Tags: <select id="noteTags" onchange="NoteTracker.searchForTag(this.value)"><option class="tagColor" value="none">None</option>';
+    for (var i = 0; i < userLibrary[userIndex].tagLibrary.length; i++) {
+      menu += '<option class="tagColor" value="' + userLibrary[userIndex].tagLibrary[i] + '">' + userLibrary[userIndex].tagLibrary[i] + '</option>';
+    }
+    menu += '</select></form>';
     return menu;
   },
   assignTags: function(){
@@ -275,7 +278,7 @@ var NoteTracker = {
       NoteTracker.newNote(e);
       NoteTracker.createForm();
     },false);
-    },
+  },
   //   newNoteInput = document.getElementById('textInput');
   //   newNoteInput.addEventListener('submit', function(e) {NoteTracker.newNote(e);
   //   NoteTracker.createForm();},false);
@@ -283,16 +286,16 @@ var NoteTracker = {
   updateForm: function(e){
     userLibrary[userIndex].library[tempNoteId].noteTitle = e.target.noteTitle.value;
     userLibrary[userIndex].library[tempNoteId].noteContent = e.target.noteContent.value;
-      if (e.target.noteTag.value !== '') {
-        if (!NoteTracker.checkTagExists(e.target.noteTag.value)){
-          userLibrary[userIndex].library[tempNoteId].noteTags.push(e.target.noteTag.value);
-        }
-        if (userLibrary[userIndex].tagLibrary.indexOf(e.target.noteTag.value) === -1) {
-          userLibrary[userIndex].tagLibrary.push(e.target.noteTag.value);
-        }
+    if (e.target.noteTag.value !== '') {
+      if (!NoteTracker.checkTagExists(e.target.noteTag.value)){
+        userLibrary[userIndex].library[tempNoteId].noteTags.push(e.target.noteTag.value);
       }
-      localStorage.setItem('userLibrary', JSON.stringify(userLibrary));
-      NoteTracker.createForm();
+      if (userLibrary[userIndex].tagLibrary.indexOf(e.target.noteTag.value) === -1) {
+        userLibrary[userIndex].tagLibrary.push(e.target.noteTag.value);
+      }
+    }
+    localStorage.setItem('userLibrary', JSON.stringify(userLibrary));
+    NoteTracker.createForm();
   },
   editNote: function(e) {
     e.preventDefault();
@@ -302,14 +305,14 @@ var NoteTracker = {
     // document.getElementById('displayWindow').innerHTML = '<form id="textInput" class="borders"><fieldset><legend>Edit Note</legend><label for="noteTitle">Title</label><textarea id="titleTextArea" name="noteTitle" maxlength="66">' + userLibrary[this.currentIndex].library[noteID].noteTitle + '</textarea><label for="noteTag">Add a New Tag</label><textarea name="noteTag"></textarea>' + '<label for="noteContent">Content</label><textarea id="contentTextArea" name="noteContent" style="width:800px; height:150px;">' + userLibrary[this.currentIndex].library[noteID].noteContent + '</textarea><input class="button-primary" type="submit" value="Update Note"></fieldset></form>' + this.tagsMultipleSelect();
     var newNoteInput = $('#textInput').on('submit', function(e) { NoteTracker.updateForm(e);
     },false);
-},
+  },
     // var newNoteInput = document.getElementById('textInput');
   //   newNoteInput.addEventListener('submit', function(e) {NoteTracker.updateForm(e);},false);
   // },
   displayNote: function(noteID) {
     this.clearForm();
     tempNoteId = noteID;
-    $('displayWindow').append('<div id="noteWrapper" class="borders"><h4 class="labelColor">'+ userLibrary[this.currentIndex].library[noteID].noteTitle + '</h4><br/><br/><p class="labelColor">' + userLibrary[this.currentIndex].library[noteID].noteContent + '</p><input class="button-primary navspacing" type="submit" value="Edit note" id="editbutton"><input class="button-primary navspacing" type="submit" value="Delete" id="deleteButton"><input class="button-primary navspacing" type="submit" value="New note" id="newNoteButton"></div>');
+    $('displayWindow').append('<div id="noteWrapper" class="borders"><h4 class="labelColor">' + userLibrary[this.currentIndex].library[noteID].noteTitle + '</h4><br/><br/><p class="labelColor">' + userLibrary[this.currentIndex].library[noteID].noteContent + '</p><input class="button-primary navspacing" type="submit" value="Edit note" id="editbutton"><input class="button-primary navspacing" type="submit" value="Delete" id="deleteButton"><input class="button-primary navspacing" type="submit" value="New note" id="newNoteButton"></div>');
     // document.getElementById('displayWindow').innerHTML = '<div id="noteWrapper" class="borders"><h4 class="labelColor">'+ userLibrary[this.currentIndex].library[noteID].noteTitle + '</h4><br/><br/><p class="labelColor">' + userLibrary[this.currentIndex].library[noteID].noteContent + '</p><input class="button-primary navspacing" type="submit" value="Edit note" id="editbutton"><input class="button-primary navspacing" type="submit" value="Delete" id="deleteButton"><input class="button-primary navspacing" type="submit" value="New note" id="newNoteButton"></div>';
     $('#editbutton').on('click', function(e){
       NoteTracker.editNote(e);
@@ -328,7 +331,7 @@ var NoteTracker = {
   },
   searchForTag: function (tag) {
     NoteTracker.clearNoteBrowser();
-    if (tag === "none") {NoteTracker.sendAll();}
+    if (tag === 'none') {NoteTracker.sendAll();}
     var temp = [];
     for (var i = 0; i < userLibrary[userIndex].library.length; i++) {
       var x = userLibrary[userIndex].library[i];
@@ -343,7 +346,7 @@ var NoteTracker = {
   }
 };
 
-if (document.title === "Note Fellows") {
+if (document.title === 'Note Fellows') {
   NoteTracker.sendAll();
   NoteTracker.createForm();
 }
