@@ -1,30 +1,30 @@
 .borders {
-  border: 2px solid black;
+  border: .1em solid black;
 }
 #topSpacing {
-  padding-top: 30px;
+  padding-top: 3%;
 }
 #logo {
-  height:150px;
-  width:150px;
+  height:10%;
+  width:10%;
   float:right;
 }
 .smallLogo {
-  height: 70px;
-  width: 70px;
-  padding-right: 10px;
-  padding-top: 2px;
+  height: 7%;
+  width: 7%;
+  padding-right: 1em;
+  padding-top: 1em;
   float:right;
 }
 .leftspacing {
-  padding-left: 30px;
+  padding-left: 1em;
 }
 .navspacing {
-  margin-left: 30px;
+  margin-left: 1em;
 }
 #navBrowser {
   overflow-y: scroll;
-  height: 500px;
+  height: 20%;
   resize: none;
   background-color: #ffffff;
 }
@@ -93,4 +93,13 @@
 .changeFont {
   font-size: 24px;
   text-align: left;
+}
+@media only screen and (min-width:680px){
+  .imageSize {
+    height:200px;
+    width:200px;
+    border: 1px solid #fff;
+    float: right;
+  }
+
 }
