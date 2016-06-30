@@ -1,0 +1,43 @@
+html, body {
+  background-color: #333333;
+  font-family: 'Lato', sans-serif;
+}
+header {
+  background-color: black;
+  font-family: 'Titillium Web', sans-serif;
+  text-transform: uppercase;
+}
+footer {
+  background-color: black;
+  font-family: 'Titillium Web', sans-serif;
+  color: #fff;
+}
+.content {
+  background-image: url('../images/background.jpg');
+  background-position: center;
+  background-size: 100%;
+  background-repeat: none;
+  height: 100%;
+}
+h1 {
+  color: #FFFFFF;
+  margin-bottom: 40px;
+}
+nav {
+  margin-top:15px;
+}
+ul {
+  list-style: none;
+}
+li {
+  border-bottom: 1px solid black;
+  margin-bottom:0px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+li:hover {
+  background-color: #E0DDD1;
+}
+legend {
+  padding-top: 20px;
+}
