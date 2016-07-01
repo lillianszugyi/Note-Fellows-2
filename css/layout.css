@@ -62,7 +62,7 @@
 .tagColor {
   color: #000000;
 }
-.imageSize {
+.profile-pic {
   height:200px;
   width:200px;
   border: 1px solid #fff;
@@ -95,11 +95,5 @@
   text-align: left;
 }
 @media only screen and (min-width:680px){
-  .imageSize {
-    height:200px;
-    width:200px;
-    border: 1px solid #fff;
-    float: right;
-  }
 
 }
