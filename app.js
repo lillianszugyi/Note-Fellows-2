@@ -84,7 +84,7 @@ function newUser(event) {
   var userExists = false;
   for (var i = 0; i < userLibrary.length; i++) {
     if (userLibrary[i].username === username) {
-      $msg.textContent = 'Username taken';
+      $msg.text('Username taken');
       userExists = true;
     }
   }
@@ -104,7 +104,8 @@ function returnUser(event) {
   var $msg = $('#msg');
   // var msg = document.getElementById('msg');
   var userExists = false;
-  // $.each(userLibrary, function(i) {
+  // $('userLibrary').each(function(i) {
+  // userLibrary.prototype.forEach(function(i){
   for (var i = 0; i < userLibrary.length; i++) {
     if (userLibrary[i].username === username && userLibrary[i].password === password) {
       NoteTracker.currentUser = userLibrary[i];
@@ -113,11 +114,11 @@ function returnUser(event) {
       window.location = 'notes.html';
     }
     if (userLibrary[i].username === username && userLibrary[i].password !== password) {
-      $msg.textContent = 'Incorrect Password';
+      $msg.text('Incorrect Password');
       userExists = true;
     }
   }
-  if (!userExists) {$msg.textContent = 'User Does Not Exist';}
+  if (!userExists) {$msg.text('User Does Not Exist');}
 }
 /***************OBJECT LITERAL******************/
 var NoteTracker = {
