@@ -13,9 +13,9 @@ header, footer {
 .background {
   background-image: url('../images/background.jpg');
   background-position: center;
+  max-width: 100%;
   background-size: 100%;
-  background-repeat: none;
-  height: 100%;
+  background-repeat: no-repeat;
 }
 
 h1 {
@@ -23,24 +23,16 @@ h1 {
   margin-bottom: 40px;
 }
 
-nav {
-  margin-top:15px;
-}
-
-ul {
-  list-style: none;
-}
-
-li {
+/*li {
   border-bottom: 1px solid black;
   margin-bottom:0px;
   padding-left: 10px;
   padding-top: 10px;
-}
+}*/
 
-li:hover {
+/*li:hover {
   background-color: #E0DDD1;
-}
+}*/
 
 legend {
   padding-top: 20px;
